@@ -9,6 +9,7 @@ gem 'sqlite3'
 gem 'sass-rails', '~> 5.0'
 gem 'simple_form', '~> 3.3', '>= 3.3.1'
 gem 'bootstrap-sass', '~> 3.3', '>= 3.3.7'
+gem 'devise', '~> 4.2'
 gem 'uglifier', '>= 1.3.0'
 
 # Use CoffeeScript for .coffee assets and views
