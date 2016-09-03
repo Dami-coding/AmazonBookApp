@@ -10,10 +10,12 @@ class BooksController < ApplicationController
 
   def new
     @book = current_user.books.build
+    @categories = Category.all.map{ |c| [c.name, c.id] }
   end
 
   def create
     @book = current_user.books.build(book_params)
+    @Category_id= params[:category_id]
 
     if @book.save
       redirect_to root_path
@@ -35,6 +37,8 @@ def update
 end
 
 def destroy
+  @book.destroy
+  redirect_to root_path
   
 end
 
