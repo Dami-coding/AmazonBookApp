@@ -39,12 +39,12 @@ end
 def destroy
   @book.destroy
   redirect_to root_path
-  
+
 end
 
   private
   def book_params
-    params.require(:book).permit(:title, :description, :author)
+    params.require(:book).permit(:title, :description, :author, :category_id )
   end
 
   def find_book
