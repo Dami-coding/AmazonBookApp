@@ -1,37 +1,63 @@
 <div class="row">
-<div class="col-md-4 col-sm-6">
-   <%= image_tag @book.book_img.url(:book_show), class: "boo k-show" %>
+  <div class="col-md-4">
+   <%= image_tag @book.book_img.url(:book_show), class: "book-show" %>
+ </div>
+ <div class="col-md-8">
+   <div class="book-info">
+     <h2 class="book-title"><%= @book.title %></h2>
+     <h4 class="book-author"><span>From </span><%= @book.author %></h4>
+     <h3 class="avg-rating">Average Rating</h3>
+     <div class="average-review-rating" data-score=<%= @average_review %>></div>
+     <span class="number-of-reviews">Based on <%= @book.reviews.count %> review(s)</span>
+     <h6>Category: <%= @book.category.name %></h6>
+     <p><%= @book.description %></p>
    </div>
-   <div class="col-md-8">
-   <h2><%= @book.title %></h2>
-  <h4><%= @book.author %></h4>
-  <h5>Category: <%= @book.category.name %></h5>
-  <p><%= @book.description %></p>
-  </div>
- 
+ </div>
+</div>
 
 <div class="row">
   <div class="col-md-4">
-    <!-- All Reviews -->
-    <%= render @book.reviews %>
 
-    <div> 
+    <div class="reviews">
+      <!-- All Reviews -->
+      <h2>Reviews</h2>
+      <%= render @book.reviews %>
+      <div> 
        <%= link_to "Add Review", new_book_review_path(@book) %>
-    </div>
+     </div>
+   </div>
+ </div>
 
-  </div>
-</div>
 
+ <span class="label label-info user-button"><%= link_to "Back", root_path %></span>
 
-  <span class="label label-info user-button"><%= link_to "Back", root_path %></span>
-
-<% if user_signed_in? %>
-
+ <% if user_signed_in? %>
  <% if @book.user_id == current_user.id %>
-  <span class="label label-success"><%= link_to "Edit", edit_book_path(@book) %></span>
 
-  <span class="label label-danger"><%= link_to "Delete", book_path(@book), method: :delete, data: { confirm: "Are you Sure you want to delete this?" } %></span>
+ <span class="label label-success"><%= link_to "Edit", edit_book_path(@book) %></span>
 
-  <% end %> 
-<% end %>
-</div> 
+ <span class="label label-danger"><%= link_to "Delete", book_path(@book), method: :delete, data: { confirm: "Are you Sure you want to delete this?" } %></span>
+
+ <% end %> 
+ <% end %>
+
+ <script>
+  $('.review-rating').raty({
+    readOnly: true,
+    score: function() {
+      return $(this).attr('data-score');
+    },
+    path: '/assets/'
+  });
+</script>
+
+<script>
+  $('.average-review-rating').raty({
+    readOnly: true,
+    path: '/assets/',
+    score: function(){
+      return $(this).attr('data-score')
+    }
+  });
+</script> 
+</div>
